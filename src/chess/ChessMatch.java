@@ -1,5 +1,6 @@
 package chess;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -122,17 +123,19 @@ public class ChessMatch {
 		if (promoted == null) {
 			throw new IllegalStateException("There is no piece to be promoted.");
 		}
-		if (!type.equals("B") && !type.equals("N") && !type.equals("R") && !type.equals("Q"));
+		if (!type.equals("B") && !type.equals("N") && !type.equals("R") && !type.equals("Q")) {
+			return promoted; 
+		}
 		
-		Position pos = promoted.getChessPosition().toPosition();
-		Piece p = board.removePiece(pos);
-		piecesOnTheBoard.remove(p);
+			Position pos = promoted.getChessPosition().toPosition();
+			Piece p = board.removePiece(pos);
+			piecesOnTheBoard.remove(p);
+			
+			ChessPiece newPiece = newPiece(type, promoted.getColor());
+			board.placePiece(newPiece,  pos);
+			piecesOnTheBoard.add(newPiece);
 		
-		ChessPiece newPiece = newPiece(type, promoted.getColor());
-		board.placePiece(newPiece,  pos);
-		piecesOnTheBoard.add(newPiece);
-		
-		return newPiece;  
+		return newPiece;
 	}
 	
 	private ChessPiece newPiece(String type, Color color) {
